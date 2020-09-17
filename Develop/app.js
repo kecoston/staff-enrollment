@@ -12,6 +12,8 @@ const render = require("./lib/htmlRenderer");
 const { type } = require("os");
 
 
+const employees = [];
+
 function employeeQuest() {
     inquirer
         .prompt([
@@ -62,17 +64,19 @@ function employeeQuest() {
 
                     if (engineerAnswers.restart === "Yes") {
                         const engineer = new Engineer(answers.name, answers.id, answers.email, engineerAnswers.gitUser)
+                        employees.push(engineer)
                         employeeQuest()
 
                         
                                            }
                     else {
                         const engineer = new Engineer(answers.name, answers.id, answers.email, engineerAnswers.gitUser)
-                        console.log("Questions are finished.")
+                        employees.push(engineer)
+                        console.log(employees)
                     } 
                    
                 })
-      
+               
             }
 
             if (answers.role === "Manager") {
@@ -94,11 +98,14 @@ function employeeQuest() {
                     .then(managerAnswers => {
                         if ("restart" === "Yes") {
                             const manager = new Manager(answers.name, answers.id, answers.email, managerAnswers.officeNumber)
+                            employees.push(manager)
                             employeeQuest()
                         }
                         else {
                             const manager = new Manager(answers.name, answers.id, answers.email, managerAnswers.officeNumber)
-                            console.log("Questions are finished.")
+                            employees.push(manager)
+                            console.log(employees)
+
                         }
                     })
             }
@@ -121,11 +128,14 @@ function employeeQuest() {
                     .then(internAnswers => {
                         if ("restart" === "Yes") {
                             const intern = new Intern(answers.name, answers.id, answers.email, internAnswers.internSchool)
+                            employees.push(intern)
                             employeeQuest()
                         }
                         else {
                             const intern = new Intern(answers.name, answers.id, answers.email, internAnswers.internSchool)
-                            console.log("Questions are finished.")
+                            employees.push(intern)
+                            console.log(employees)
+
                         }
                     })
             }
@@ -146,7 +156,6 @@ function employeeQuest() {
 
 
 employeeQuest()
-
 
 
 
