@@ -1,19 +1,26 @@
+
+//Requirements for the application
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
+const util = require("util")
 
+//Output path and functions for how the final html will be produced and where it will be located when created
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
+const writeFileAsync = util.promisify(fs.writeFile);
+
 const render = require("./lib/htmlRenderer");
-const { type } = require("os");
 
-
+//Array that will store all of the employee information that the user puts in
 const employees = [];
 
+
+//Questions that will fill the parameters for the html file
 function employeeQuest() {
     inquirer
         .prompt([
@@ -72,7 +79,7 @@ function employeeQuest() {
                     else {
                         const engineer = new Engineer(answers.name, answers.id, answers.email, engineerAnswers.gitUser)
                         employees.push(engineer)
-                        console.log(employees)
+                        renderHTML()
                     } 
                    
                 })
@@ -104,7 +111,7 @@ function employeeQuest() {
                         else {
                             const manager = new Manager(answers.name, answers.id, answers.email, managerAnswers.officeNumber)
                             employees.push(manager)
-                            console.log(employees)
+                            renderHTML()
 
                         }
                     })
@@ -134,7 +141,7 @@ function employeeQuest() {
                         else {
                             const intern = new Intern(answers.name, answers.id, answers.email, internAnswers.internSchool)
                             employees.push(intern)
-                            console.log(employees)
+                            renderHTML()
 
                         }
                     })
@@ -155,8 +162,22 @@ function employeeQuest() {
 }
 
 
-employeeQuest()
+// the function to call the elements to create and save the html file
+async function renderHTML() {
+    try {
+      const htmlTemp = render(employees)
+     
+      await writeFileAsync(outputPath, htmlTemp);
+  
+      console.log("Successfully wrote to html file");
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  
+  
 
+employeeQuest()
 
 
 
