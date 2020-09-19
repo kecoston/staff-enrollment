@@ -41,4 +41,4 @@ It was challenging for me to read the test script. I do see how writing tests ca
   Staff Enrollment Application   Copyright (C) 2020 kecoston
 
   GitHub Project Repository: https://github.com/kecoston/staff-enrollment
-  Application Video Demonstration: https://drive.google.com/file/d/1IT_Hsf5oDYQE3QUnFy0kA7jVprUg2lFx/view?usp=sharing
+  Application Video Demonstration: https://drive.google.com/file/d/1RsUL6e0q7asSSG1Qd2la0L3Nbic_J-93/view
